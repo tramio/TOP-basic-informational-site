@@ -1,0 +1,26 @@
+{
+  "name": "basic_informational_site",
+  "description": "**What?** a basic website to practice Node.js basics (create a server that listens to a port, use the http, url and fs modules). The project instructions can be found on **[The Odin Project's website](https://www.theodinproject.com/lessons/nodejs-basic-informational-site)**.",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {
+    "prettier": "^2.7.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tramio/TOP-basic-informational-site.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tramio/TOP-basic-informational-site/issues"
+  },
+  "homepage": "https://github.com/tramio/TOP-basic-informational-site#readme",
+  "dependencies": {
+    "express": "^4.18.1"
+  }
+}

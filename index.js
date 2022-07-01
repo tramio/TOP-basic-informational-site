@@ -1,39 +1,43 @@
-const http = require('http');
-const url = require('url');
-const fs = require('fs');
+const express = require("express");
+const path = require("path");
 
+const app = express();
 const port = 8080;
 
-const server = http.createServer((req, res) => {
-  const requestedUrl = url.parse(req.url, true);
-  const requestedFile =
-    requestedUrl.pathname === "/" || ""
-      ? "./pages/index.html"
-      : `./pages${requestedUrl.pathname}.html`;
-
-  fs.readFile(requestedFile, (err, data) => {
-    if (err) {
-      fs.readFile('./404.html', (err, data) => {
-        if (err) {
-          console.log(err);
-        }
-        else {
-          res.writeHead(404, {
-            "Content-Type": "text/html",
-          });
-          res.write(data);
-          res.end();
-        }
-      });
-    }
-    else {
-      res.writeHead(200, {
-        "Content-Type": "text/html",
-      });
-      res.write(data);
-      res.end();
-    }
-  })
+app.listen(port, () => {
+  console.log(`App listening to port ${port}!`);
 });
 
-server.listen(port);
+const handleBrokenSendFile = (err, res) => {
+  res.sendFile(path.join(__dirname, "/404.html"));
+};
+
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "/pages/index.html"), (err) =>
+    handleBrokenSendFile(err, res)
+  );
+});
+
+app.get("/index", (req, res) => {
+  res.sendFile(path.join(__dirname, "/pages/index.html"), (err) =>
+    handleBrokenSendFile(err, res)
+  );
+});
+
+app.get("/about", (req, res) => {
+  res.sendFile(path.join(__dirname, "/pages/about.html"), (err) =>
+    handleBrokenSendFile(err, res)
+  );
+});
+
+app.get("/contact-me", (req, res) => {
+  res.sendFile(path.join(__dirname, "/pages/contact-me.html"), (err) =>
+    handleBrokenSendFile(err, res)
+  );
+});
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "/404.html"), (err) => {
+    if (err) { console.log(err) }
+  });
+});
